@@ -1,0 +1,12 @@
+title: dmitrytsepelev.dev
+description: "A home for my blog posts"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://dmitrytsepelev.dev"
+
+minima:
+  social_links:
+    twitter: dmitrytsepelev
+    github:  dmitrytsepelev
+
+# Build settings
+theme: minima
