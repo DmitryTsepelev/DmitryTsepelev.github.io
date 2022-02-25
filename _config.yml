@@ -8,5 +8,4 @@ minima:
     twitter: dmitrytsepelev
     github:  dmitrytsepelev
 
-# Build settings
-theme: minima
+remote_theme: "jekyll/minima"
