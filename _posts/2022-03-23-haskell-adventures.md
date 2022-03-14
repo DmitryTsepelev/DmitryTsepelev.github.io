@@ -7,6 +7,8 @@ description: 'Rubyist is travelling to the unexplored Haskelland'
 tags: haskell
 ---
 
+**Part 1 \| [Part 2](/haskell-adventures-functors)**
+
 My Haskell journey started with a [Stepic course](https://stepik.org/course/75) a couple of years ago: I learned a lot of cool things back in the days but there were no room for a practice. This year I started to solve [Advent of Code](https://github.com/DmitryTsepelev/advent_of_code_2021) using Go but realized that this is a perfect moment to grab Haskell from the shelf and try to use it. Turned out that Haskell is very beautiful!
 
 This article is not going to teach you how to write Haskell. Instead, I'm going show my excitement by sharing a couple of cool code snippents; maybe it will convince you to give Haskell a shot.
@@ -247,4 +249,4 @@ Voila! 🎉
 
 ---
 
-That's all for today, and I hope that some readers already getting some books to dig into Haskell. Next time we'll talk about functors. Stay tuned!
+That's all for today, and I hope that some readers already getting some books to dig into Haskell. [Next time](/haskell-adventures-functors) we'll talk about functors. Stay tuned!
