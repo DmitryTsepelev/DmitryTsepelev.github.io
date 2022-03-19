@@ -11,3 +11,11 @@ minima:
     github:  dmitrytsepelev
 
 remote_theme: "jekyll/minima"
+
+collections:
+  talks:
+    output: true
+
+header_pages:
+  - talks.md
+  - about.md

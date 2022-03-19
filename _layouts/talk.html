@@ -1,0 +1,60 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      {{ page.conference }} |
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.modified_date -%}
+        ~
+        {%- assign mdate = page.modified_date | date_to_xmlschema -%}
+        <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+          {{ mdate | date: date_format }}
+        </time>
+      {%- endif -%}
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {%- if page.youtube_link -%}
+    <iframe
+      width="800"
+      height="420"
+      src="{{ page.youtube_link }}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+    ></iframe>
+    {%- endif -%}
+
+    {%- if page.link -%}
+    <a href="{{page.link}}">{{page.link_title}}</a>
+    {%- endif -%}
+
+    {%- if page.slides_link -%}
+    <iframe
+      width="800"
+      height="420"
+      class="speakerdeck-iframe"
+      frameborder="0"
+      src="{{ page.slides_link }}"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+      style="border: 0px; background-color: rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px; -webkit-background-clip: padding-box; -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 560px; height: 314px;" data-ratio="1.78343949044586"
+    ></iframe>
+    {%- endif -%}
+
+    {{ content }}
+  </div>
+
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
