@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Haskell Adventures: digging into the declarative approach"
-date:   2022-02-27 12-00-00
+date:   2022-03-23 12-00-00
 permalink: 'haskell-adventures'
 description: 'Rubyist is travelling to the unexplored Haskelland'
 ---
