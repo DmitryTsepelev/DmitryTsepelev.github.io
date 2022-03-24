@@ -83,6 +83,9 @@ moves current =
     deltas = [(dx, dy) | dx <- [-1..1], dy <- [-1..1], (dx, dy) /= (0, 0)]
 ```
 
+> Well, it's not a "guess" but the "type inference", thanks [@riftdc
+](https://www.reddit.com/r/haskell/comments/tkpt4c/comment/i1wnw8q/?utm_source=share&utm_medium=web2x&context=3) for pointing it out ❤️
+
 First of all, we define a new named type `Position` which represents a _pair of integers_:
 
 ```haskell
