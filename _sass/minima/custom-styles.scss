@@ -17,7 +17,7 @@ pre, code {
   border: 1px solid $border-color-02;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1600px) {
   .tag-cloud {
     right: 36px;
     top: 100px;
@@ -26,7 +26,7 @@ pre, code {
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1600px) {
   .tag-cloud {
     position: fixed;
     right: 36px;
