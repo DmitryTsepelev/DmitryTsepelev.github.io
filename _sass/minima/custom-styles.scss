@@ -12,3 +12,26 @@ pre, code {
   font-size: 20px;
   line-height: 1.7;
 }
+
+.tag-cloud {
+  border: 1px solid $border-color-02;
+}
+
+@media screen and (max-width: 1200px) {
+  .tag-cloud {
+    right: 36px;
+    top: 100px;
+    padding: 8px;
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .tag-cloud {
+    position: fixed;
+    right: 36px;
+    top: 100px;
+    padding: 8px;
+    min-width: 200px;
+  }
+}

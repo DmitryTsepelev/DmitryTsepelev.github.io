@@ -1,0 +1,9 @@
+---
+layout: default
+---
+<div class="post">
+  <h1>Tag: #{{ page.tag }}</h1>
+
+  {% assign posts = site.tags[page.tag] %}
+  {% include post_list.html posts=posts %}
+</div>

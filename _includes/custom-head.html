@@ -1,2 +1,6 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+
+{% if site.tags != "" %}
+  {% include collect_tags.html %}
+{% endif %}

@@ -7,30 +7,9 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
+  {% include tag-cloud.html %}
+
   {% include anchor_headings.html html=content anchorBody="#" %}
 
-  <ul class="post-list">
-    {%- for post in site.posts -%}
-    <li>
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <span class="post-meta">{{ post.date | date: date_format }}</span>
-      {%- if post.external_url -%}
-        <h3>
-          <a class="post-link" href="{{ post.external_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-      {%- else -%}
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      {%- endif -%}
-    </li>
-    {%- endfor -%}
-  </ul>
+  {% include post_list.html posts=site.posts %}
 </div>

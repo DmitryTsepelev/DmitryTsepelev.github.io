@@ -4,6 +4,7 @@ title:  "Haskell Adventures: digging into the declarative approach"
 date:   2022-03-23 12-00-00
 permalink: 'haskell-adventures'
 description: 'Rubyist is travelling to the unexplored Haskelland'
+tags: haskell
 ---
 
 My Haskell journey started with a [Stepic course](https://stepik.org/course/75) a couple of years ago: I learned a lot of cool things back in the days but there were no room for a practice. This year I started to solve [Advent of Code](https://github.com/DmitryTsepelev/advent_of_code_2021) using Go but realized that this is a perfect moment to grab Haskell from the shelf and try to use it. Turned out that Haskell is very beautiful!

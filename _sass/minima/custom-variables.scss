@@ -3,4 +3,10 @@ $code-font-family: "Fira Code", monospace;
 
 $code-background-color: #f4f4f4;
 
-$content-width: 1000px;
+@media screen and (max-width: 1000px) {
+  $content-width: 800px;
+}
+
+@media screen and (min-width: 1200px) {
+  $content-width: 1000px;
+}
