@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why Ruby has Symbols?"
+title: "Why Ruby has Symbols"
 date: 2022-04-05 10:00:00 +0300
 permalink: 'why-has-ruby-symbols'
 description: 'Difference between strings and symbols in Ruby'
