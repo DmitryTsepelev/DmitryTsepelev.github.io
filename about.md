@@ -4,6 +4,8 @@ title: About me
 permalink: /about/
 ---
 
+![avatar](/assets/avatar.png){: .about-avatar}
+
 Hi! 👋
 
 My name is Dmitry Tsepelev and I'm a backend engineer at [@evilmartians](https://github.com/evilmartians). 👽 Feel free to ask me questions about Ruby, Rails, PostgreSQL and GraphQL.
