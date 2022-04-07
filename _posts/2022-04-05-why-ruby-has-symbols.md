@@ -322,15 +322,32 @@ That's all for today, let's summarize what we found here.
 
 <sup>*</sup> There is another optimization for strings that makes a copy of a string only when it's modified (it is called Copy on Write or CoW):
 
+Here's the great example of how CoW works by [Kernigh](https://www.reddit.com/user/Kernigh/) (see the whole [response](https://www.reddit.com/r/ruby/comments/twqz89/why_ruby_has_symbols/i3piyiv/?utm_source=reddit&utm_medium=web2x&context=3)):
+
 ```ruby
-s = "string" # => "string"
-s.object_id # => 440
+require 'objspace'
+GC.disable
 
-s2 = s # => "string"
-s2.object_id # => 440
+# Initialize strings and their tails. Tails share storage.
+strings = ('a'..'j').map { |char| char * 2_000_000 }
+tails = strings.map { |s| s[1_000_000, 1_000_000] }
+GC.start
+size0 = ObjectSpace.memsize_of_all
 
-s2 += "!" # => "string!"
-s2.object_id #=> 460
+# Trigger CoW by modifying tails:
+tails.each { |s| s[0] = 'm' }
+GC.start
+size1 = ObjectSpace.memsize_of_all
+
+printf "before CoW: %s bytes\n", size0
+printf " after CoW: %s bytes\n", size1
+```
+
+This script makes 20 million bytes of strings and 10 million bytes of tails, which are sharing storage with previously initialized strings. Then it remembers the memory size and modifies tails, which makes it impossible to share storage with strings (i.e., we trigger a copy operation). Then we take new a memory size and compare:
+
+``bash
+before CoW: 23531454 bytes
+ after CoW: 33538113 bytes
 ```
 
 What's the most important thing to remember? Strings and symbols are easy to convert back and forth (`to_s`/`to_sym`) but remember that each string allocation takes memory, while symbols are deduplicated and faster to compare.
