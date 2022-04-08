@@ -197,7 +197,7 @@ It's easy to make sure that the symbol was allocated only once, while we got a n
 # => [921948, 921948, 921948, 921948, 921948]
 ```
 
-Unfortunatelly it's impossible to access the symbols table from the Ruby code (because Ruby does not expose such API). However, we can see a [list representation](https://github.com/ruby/ruby/blob/d92f09a5eea009fa28cd046e9d0eb698e3d94c5c/string.c#L11512) of symbols (I'm taking only 10 because the list is rather huge):
+Unfortunately it's impossible to access the symbols table from the Ruby code (because Ruby does not expose such API). However, we can see a [list representation](https://github.com/ruby/ruby/blob/d92f09a5eea009fa28cd046e9d0eb698e3d94c5c/string.c#L11512) of symbols (I'm taking only 10 because the list is rather huge):
 
 ```ruby
 Symbol.all_symbols.sample(10)
@@ -223,9 +223,9 @@ Symbol.all_symbols.last # => :las
 Symbol.all_symbols.last # => :my_new_symbol
 ```
 
-Why I didn't do something like `Symbol.all_symbols.include?(:my_new_symbol)`? The reason is that such a call will always return `true`: `:my_new_symbol` will be initialized and added to the table _before_ the `.include?` call. At this moment experienced functional programmers should feel disguisted because this sounds like something not pure at all 🙂
+Why I didn't do something like `Symbol.all_symbols.include?(:my_new_symbol)`? The reason is that such a call will always return `true`: `:my_new_symbol` will be initialized and added to the table _before_ the `.include?` call. At this moment experienced functional programmers should feel disgusted because this sounds like something not pure at all 🙂
 
-> For more details read "Understanding how symbols differ from strings" chapter in [Polished Ruby Programming](https://www.amazon.com/Polished-Ruby-Programming-maintainable-high-performance-ebook/dp/B093TH9P7C) by Jeremy Evants
+> For more details read "Understanding how symbols differ from strings" chapter in [Polished Ruby Programming](https://www.amazon.com/Polished-Ruby-Programming-maintainable-high-performance-ebook/dp/B093TH9P7C) by Jeremy Evans
 
 Let's think why the list of symbols was not empty when we accessed it for first time. Firstly, Ruby standard library contains some symbols which are already loaded. Secondly, if we look at the symbol list closer we might see some old friends like `:sort`, which is the name of the method for sorting enumerables. Turns out that tokens representing constants, variable names, method names, class names and so on are stored _in the same table_!
 
