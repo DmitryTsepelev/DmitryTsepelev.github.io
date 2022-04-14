@@ -89,7 +89,7 @@ Please note, that token `:password` is used in different contexts: as an argumen
 
 > According to [Wiki](https://en.wikipedia.org/wiki/Lexical_analysis#Token), token is a "lexical token or simply token is a string with an assigned and thus identified meaning. It is structured as a pair consisting of a token name and an optional token value"
 
-When AST is built, it is validated to make sure it makes sense (that's called _lexing_) and converted it to the bytecode. Bytecode is a language that can be executed by the Virtual Machine on any hardware you want.
+When AST is built, it is validated to make sure it makes sense and converted it to the bytecode. Bytecode is a language that can be executed by the Virtual Machine on any hardware you want.
 
 This is how we can see the bytecode representation for the Ruby source:
 
