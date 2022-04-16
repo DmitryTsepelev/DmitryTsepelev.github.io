@@ -5,6 +5,7 @@ url: "https://dmitrytsepelev.dev"
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
 
 google_analytics: UA-221390545-1
 
