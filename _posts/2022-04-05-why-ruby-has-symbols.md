@@ -7,6 +7,8 @@ description: 'Difference between strings and symbols in Ruby'
 tags: interpreters ruby
 ---
 
+> 🇯🇵 Looking for a Japaneeze version? [Here](https://techracho.bpsinc.jp/hachi8833/2022_04_28/117351) it is
+
 Many people who come to Ruby start using symbols on their first day. Come on, [Getting Started with Rails](https://guides.rubyonrails.org/getting_started.html#database-migrations) shows you symbols in the first migration you generate! From the first glance, symbols look like strings (`:hi` versus `"hi"`) and can be converted back and forth. The naive explanation of their difference is that strings are used to represent some data (e.g., constant or variable values), while symbols usually appear as a part of the code (e.g., arguments of method calls). However, why do we have both? Let's figure that out!
 
 ## How strings and symbols are used in Ruby?
