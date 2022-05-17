@@ -49,7 +49,7 @@ When Ruby program is run, it should be compiled to the bytecode first. _Virtual 
 
 > Compilation step was added in Ruby 1.9
 
-First of all, interpreter _parses_ your program and gets an Abstract Syntax Tree (usually referred as AST) containing tokens that appear in the source code. I'm going to use a gem called [parser](https://github.com/whitequark/parser) to examine an AST of the `Article` class along with it's usage:
+First of all, interpreter _parses_ your program and gets an Abstract Syntax Tree (usually referred as AST) containing tokens that appear in the source code. I'm going to use a gem called [parser](https://github.com/whitequark/parser) to examine an AST of the `Article` class along with its usage:
 
 ```ruby
 require 'parser/current'
@@ -91,7 +91,7 @@ Please note, that token `:password` is used in different contexts: as an argumen
 
 > According to [Wiki](https://en.wikipedia.org/wiki/Lexical_analysis#Token), token is a "lexical token or simply token is a string with an assigned and thus identified meaning. It is structured as a pair consisting of a token name and an optional token value"
 
-When AST is built, it is validated to make sure it makes sense and converted it to the bytecode. Bytecode is a language that can be executed by the Virtual Machine on any hardware you want.
+When AST is built, it is validated to make sure it makes sense and converted to the bytecode. Bytecode is a language that can be executed by the Virtual Machine on any hardware you want.
 
 This is how we can see the bytecode representation for the Ruby source:
 
@@ -143,7 +143,7 @@ RubyVM::InstructionSequence.disasm(RubyVM::InstructionSequence.compile(code))
 0015 leave                                                            (   4)[En]
 ```
 
-There are two sections starting with `== disasm`. Each section represents a single _lexical scope_: one for the top–level code and one for the code inside class. Each line is a single bytecode instruction. For instance `putobject` adds it's argument to the _stack_, `opt_send_without_block` handles sending a message to another object, `putself` changes the `self` value, etc.
+There are two sections starting with `== disasm`. Each section represents a single _lexical scope_: one for the top–level code and one for the code inside class. Each line is a single bytecode instruction. For instance `putobject` adds its argument to the _stack_, `opt_send_without_block` handles sending a message to another object, `putself` changes the `self` value, etc.
 
 > Technically bytecode (or, more precisely, "code that VM executes") instruction can take more than one byte but that's one of the popular formats.
 
@@ -199,7 +199,7 @@ It's easy to make sure that the symbol was allocated only once, while we got a n
 # => [921948, 921948, 921948, 921948, 921948]
 ```
 
-Unfortunately it's impossible to access the symbols table from the Ruby code (because Ruby does not expose such API). However, we can see a [list representation](https://github.com/ruby/ruby/blob/d92f09a5eea009fa28cd046e9d0eb698e3d94c5c/string.c#L11512) of symbols (I'm taking only 10 because the list is rather huge):
+Unfortunately, it's impossible to access the symbols table from the Ruby code (because Ruby does not expose such API). However, we can see a [list representation](https://github.com/ruby/ruby/blob/d92f09a5eea009fa28cd046e9d0eb698e3d94c5c/string.c#L11512) of symbols (I'm taking only 10 because the list is rather huge):
 
 ```ruby
 Symbol.all_symbols.sample(10)
@@ -229,9 +229,9 @@ Why I didn't do something like `Symbol.all_symbols.include?(:my_new_symbol)`? Th
 
 > For more details read "Understanding how symbols differ from strings" chapter in [Polished Ruby Programming](https://www.amazon.com/Polished-Ruby-Programming-maintainable-high-performance-ebook/dp/B093TH9P7C) by Jeremy Evans
 
-Let's think why the list of symbols was not empty when we accessed it for first time. Firstly, Ruby standard library contains some symbols which are already loaded. Secondly, if we look at the symbol list closer we might see some old friends like `:sort`, which is the name of the method for sorting enumerables. Turns out that tokens representing constants, variable names, method names, class names and so on are stored _in the same table_!
+Let's think why the list of symbols was not empty when we accessed it for the first time. Firstly, Ruby standard library contains some symbols which are already loaded. Secondly, if we look at the symbol list closer we might see some old friends like `:sort`, which is the name of the method for sorting enumerables. Turns out that tokens representing constants, variable names, method names, class names and so on are stored _in the same table_!
 
-When we called `Symbol.all_symbols.last` for the first time, it returned `:las`. If we look at the last symbols in the list we'll notice `:la` and `:las`. What is it? Looks like it is the way how hash tables are implemented: Ruby builds a tree using chars as nodes (starting from two first nodes, because otherwise the tree will have 27 nodes on the first level), and symbols become are leafs.
+When we called `Symbol.all_symbols.last` for the first time, it returned `:las`. If we look at the last symbols in the list we'll notice `:la` and `:las`. What is it? Looks like it is the way how hash tables are implemented: Ruby builds a tree using chars as nodes (starting from two first nodes, because otherwise the tree will have 27 nodes on the first level), and symbols become leaves.
 
 > Garbage collection removes unused data from memory, so we should not worry about it. When trees were high and computers were huge, people did it manually. Well, some people still do it manually when dealing with languages like C.
 
@@ -241,7 +241,7 @@ _Garbage Collector_ (usually referred as _GC_) can collect unused strings, but w
 
 ## Interning strings
 
-The approach when strings are stored in the hash table and referred as integer IDs is called _string interning_. When VM needs to compare two different string objects in the memory, it has to do it byte by byte, which is not very performanct. String interning is a technique when some (or all) strings are stored in the hash table and string IDs are used instead of them. Of course, there is a guarantee that all table values are unique. Comparsion becomes dead simple: we just need to compare two integers.
+The approach when strings are stored in the hash table and referred as integer IDs is called _string interning_. When VM needs to compare two different string objects in the memory, it has to do it byte by byte, which is not very performant. String interning is a technique when some (or all) strings are stored in the hash table and string IDs are used instead of them. Of course, there is a guarantee that all table values are unique. Comparison becomes dead simple: we just need to compare two integers.
 
 > This section is heavily inspired by "Interning strings" chapter from [Crafting Interpreters](https://craftinginterpreters.com) by Robert Nystrom, check it out if you want to dig into language implementation details. Well, I'd say check it out anyway—it's just awesome.
 
@@ -249,7 +249,7 @@ Different languages use string interning in different proportions: e.g., Lua int
 
 Is there a special bytecode operator that makes string interned? No, because it's just one of possible optimizations which happens _as a part_ of other higher–level operations. For instance, `# 0001 putobject :email` is likely going to add `:email` to the symbols table if it's not there yet.
 
-Let's open up the source code of Ruby itself and check out how it works. Symbol allocation is happenning in the `rb_id_attrset` function of [symbol.c](https://github.com/ruby/ruby/blob/master/symbol.c#L113), which can called both from compilation and interpretation stages:
+Let's open up the source code of Ruby itself and check out how it works. Symbol allocation is happening in the `rb_id_attrset` function of [symbol.c](https://github.com/ruby/ruby/blob/master/symbol.c#L113), which can be called both from compilation and interpretation stages:
 
 ```c
 ID
