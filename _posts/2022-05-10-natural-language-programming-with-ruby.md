@@ -871,6 +871,8 @@ As you see, we use `VM#read_variable` and `VM#assign_variable` as a "low–level
 
 That's all for today, I hope you enjoyed the ride! We learned how to use metaprogramming to build complex DSLs in Ruby. Obviously, this is not a real natural language processing and languages we can built using this DSL are very limited, but I had a lot of fun preparing these examples so decided to share it with the world.
 
+> A gemified version of this approach is available [here](https://github.com/DmitryTsepelev/natural_dsl).
+
 If you want to get your hands dirty—I collected a couple of ideas I decided to not implement:
 
 1. Allow assign the value of one variable to another (e.g., `assign variable b value a`)
