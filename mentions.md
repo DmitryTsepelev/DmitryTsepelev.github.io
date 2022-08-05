@@ -20,6 +20,7 @@ Newsletters:
 - [Ruby Weekly #605](https://rubyweekly.com/issues/605)
 - [Ruby Weekly #608](https://rubyweekly.com/issues/608)
 - [Ruby Weekly #610](https://rubyweekly.com/issues/610)
+- [Ruby Weekly #615](https://rubyweekly.com/issues/615)
 - [Haskell Weekly #308](https://haskellweekly.news/issue/308.html)
 - [Haskell Weekly #310](https://haskellweekly.news/issue/310.html)
 - [GraphQL Weekly #152](https://www.graphqlweekly.com/issues/152/#content)
