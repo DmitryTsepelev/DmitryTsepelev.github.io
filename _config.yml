@@ -12,8 +12,8 @@ google_analytics: UA-221390545-1
 
 minima:
   social_links:
-    twitter: dmitrytsepelev
-    github:  dmitrytsepelev
+    - { platform: github,  user_url: "https://github.com/dmitrytsepelev" }
+    - { platform: twitter, user_url: "https://twitter.com/dmitrytsepelev" }
 
 remote_theme: "jekyll/minima"
 
