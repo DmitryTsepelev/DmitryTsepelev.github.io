@@ -4,7 +4,7 @@ title:  "Haskell Adventures: digging into the declarative approach"
 date:   2022-03-23 12-00-00
 permalink: 'haskell-adventures'
 description: 'Rubyist is travelling to the unexplored Haskelland'
-tags: haskell
+tags: haskell functional-programming
 ---
 
 **Part 1 \| [Part 2](/haskell-adventures-functors)**

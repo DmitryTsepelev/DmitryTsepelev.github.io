@@ -4,7 +4,7 @@ title: "Haskell Adventures: Functors"
 date: 2022-03-31 12-00-00
 permalink: 'haskell-adventures-functors'
 description: 'Ruby engineer is exploring functors in Haskell'
-tags: haskell
+tags: haskell functional-programming
 ---
 
 **[Part 1](/haskell-adventures) \| Part 2**
