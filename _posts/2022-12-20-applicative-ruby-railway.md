@@ -7,6 +7,8 @@ description: 'How to write Railway–style code in Ruby with the Applicative fun
 tags: ruby functional-programming
 ---
 
+**Part 1 \| [Part 2](/applicative-ruby-advanced-behavior)**
+
 In this post we will see how applicative programming can be used for implementing code in the Railway style using a gem [applicative-rb](https://github.com/DmitryTsepelev/applicative-rb).
 
 ---
