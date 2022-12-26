@@ -52,12 +52,12 @@ class ProcessOrder
   end
 
   def prepare_shipment
-    @order.item_id == 42 ? Success() : Failure("not enough items in warehouse")
+    @order.item_id == 42 ? Right() : Left("not enough items in warehouse")
   end
 
   def update_order_status
     @order.processed!
-    Left()
+    Right()
   end
 end
 ```
@@ -131,7 +131,7 @@ Functor interface has one function, we will call it `fmap`, like it's called in 
 
 ![Functor](/assets/functor.png)
 
-In other words, it should pass two the function that transforms value of type `a` to value of type `b`. `#fmap` will call this function on the data in the container, which has a type `f a` (`f` is "functor"). As a result, a value of type `f b` will be returned.
+In other words, it should pass the function that transforms a value of type `a` to a value of type `b`. `#fmap` will call this function on the data in the container, which has a type `f a` (`f` is "functor"). As a result, a value of type `f b` will be returned.
 
 > Read more about Functors in my [Haskell post](https://dmitrytsepelev.dev/haskell-adventures-functors)
 
