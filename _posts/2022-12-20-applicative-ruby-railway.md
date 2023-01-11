@@ -146,7 +146,7 @@ class Either
   include Functor
   def fmap(&fn)
     case self
-    in Either::Right(value) then Either::Right.new(fn.(value))
+    in Functor::Right(value) then Functor::Right(fn.curry.(value))
     in left then left
     end
   end
