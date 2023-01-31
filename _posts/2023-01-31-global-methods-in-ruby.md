@@ -30,7 +30,7 @@ class Example
   end
 end
 
-Example.new.foo # => 42
+Example.new.run_foo # => 42
 ```
 
 It works! Our method can be called even from the method in a different class. It behaves like a global method.
