@@ -4,7 +4,7 @@ title: "Building complex reports for your own DVD rental shop using PostgreSQL w
 date: 2022-07-12 09:00:00 +0300
 permalink: 'complex-reports-in-postgresql'
 description: 'How to use window functions in PostgreSQL: rank, dense_rank, row_number, sum and lag'
-tags: psql
+tags: psql performance
 ---
 
 Often times engineering teams face performance or memory issues caused by database requests. I'm a Ruby engineer, and Ruby is known as a not most performant programming language, so sometimes people believe that rewriting the app with something faster (like Go) will solve their performance issues. **If the database is the bottleneck—a complete rewrite won't help!**
