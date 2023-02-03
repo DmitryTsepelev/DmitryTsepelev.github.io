@@ -82,10 +82,22 @@ Exception: we cannot call the method because it's private! Let's make sure that 
 private_methods.include? :foo #=> true
 ```
 
+Does `Object` have a base class?
+
+```ruby
+Object.superclass # => BasicObject
+```
+
+According to the [docs](https://ruby-doc.org/core-3.1.1/BasicObject.html), `BasicObject` is a base class for new object hierarchies, and it's completely empty. Therefore, "top–level" methods won't be available in your class if you inherit right from it:
+
+```ruby
+BasicObject.new.foo # => undefined method `foo' for #<BasicObject:0x00000001058d5648> (NoMethodError)
+```
+
 Let's summarize our explorations:
 
 - when some method is defined on the top–level scope, it's defined in the `Object` class;
-- this method can be called from any other class;
+- this method can be called from any other class, except ones inheriting from `BasicObject`;
 - the defined method is private, so it cannot be called directly on the instance of the `Object`.
 
 Looks like that's the answer! There is _no global scope_, we can access the method on the top level (because it's defined here) or in other classes (because they inherit from `Object`), but this method is not visible from the outside because it's private.
