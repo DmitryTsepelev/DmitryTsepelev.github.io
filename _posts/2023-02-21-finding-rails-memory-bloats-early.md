@@ -3,7 +3,7 @@ layout: post
 title: "How to find a memory bloat in your Rails app before it happens"
 date: 2023-02-21 09-00-00
 permalink: 'finding-rails-memory-bloats-early'
-description: 'Where Ruby methods keeps methods and variables defined on the top–level scope'
+description: 'How to detect a possible memory bloat in Rails before it starts being a problem'
 tags: ruby performance
 ---
 
