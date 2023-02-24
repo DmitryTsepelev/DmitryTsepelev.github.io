@@ -6,6 +6,7 @@ permalink: /mentions/
 
 Newsletters:
 
+- [Ruby Weekly #642](https://rubyweekly.com/issues/642)
 - [Ruby Weekly #640](https://rubyweekly.com/issues/640)
 - [Ruby Weekly #639](https://rubyweekly.com/issues/639)
 - [Ruby Weekly #634](https://rubyweekly.com/issues/634)
