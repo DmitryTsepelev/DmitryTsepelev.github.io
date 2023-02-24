@@ -59,7 +59,7 @@ ActiveSupport::Notifications.subscribe("process_action.action_controller") do |*
   io_bytesize = Aggregator.instance.io_bytesize
   body_bytesize = args.last[:response].body.bytesize
 
-  ratio = io_bytesize / body_bytesize.to_f
+  ratio = body_bytesize.to_f / io_bytesize
 
   Rails.logger.info "Loaded from I/O #{io_bytesize}, response bytesize #{body_bytesize}, I/O to response ratio #{ratio}"
 end
