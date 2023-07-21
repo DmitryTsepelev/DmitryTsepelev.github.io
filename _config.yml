@@ -22,6 +22,7 @@ collections:
     output: true
 
 header_pages:
+  - oss.md
   - talks.md
   - mentions.md
   - about.md
