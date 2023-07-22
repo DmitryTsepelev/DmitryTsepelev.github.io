@@ -4,6 +4,8 @@ title: Open source
 permalink: /oss/
 ---
 
+I maintain a number of more or less popular libraries in Ruby ecosystem.
+
 Rails tooling:
 
 - [store_model](https://github.com/DmitryTsepelev/store_model) allows you to wrap JSON-backed DB columns with ActiveModel-like classes;
@@ -26,4 +28,4 @@ Experiments:
 - [applicative-rb](https://github.com/DmitryTsepelev/applicative-rb) is an experimental implementaion of applicative functors for Ruby;
 - [natural_dsl](https://github.com/DmitryTsepelev/natural_dsl) is an experimental DSL for building _natural–language_ DSLs.
 
-Also, I contribute to various open–source projects ([Ruby on Rails](https://github.com/rails/rails/pulls?q=is%3Apr+author%3ADmitryTsepelev+), [graphql-ruby](https://github.com/rmosolgo/graphql-ruby/pulls?q=is%3Apr+author%3ADmitryTsepelev+), [GitLab](https://gitlab.com/gitlab-org/ruby/gems/gitlab-styles/-/merge_requests/95#note_736251081) and [many more](https://github.com/pulls?q=is%3Apr+author%3ADmitryTsepelev+archived%3Afalse+is%3Apublic)).
+Also, I contribute to various open–source projects ([Ruby on Rails](https://github.com/rails/rails/pulls?q=is%3Apr+author%3ADmitryTsepelev+), [graphql-ruby](https://github.com/rmosolgo/graphql-ruby/pulls?q=is%3Apr+author%3ADmitryTsepelev+), [GitLab](https://gitlab.com/gitlab-org/ruby/gems/gitlab-styles/-/merge_requests/95#note_736251081), [yarp](https://github.com/ruby/yarp/pulls?q=is%3Apr+is%3Aclosed+author%3ADmitryTsepelev) and [many more](https://github.com/pulls?q=is%3Apr+author%3ADmitryTsepelev+archived%3Afalse+is%3Apublic)).
