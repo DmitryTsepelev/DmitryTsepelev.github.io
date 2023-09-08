@@ -13,6 +13,26 @@ pre, code {
   line-height: 1.7;
 }
 
+.tinyletter {
+  position: absolute;
+  right: 36px;
+  bottom: 36px;
+  background-color: $brand-color-dark;
+  padding: 16px;
+  border-radius: 32px;
+}
+
+.tinyletter a {
+  text-decoration: none;
+  color: white;
+}
+
+@media screen and (max-width: 1600px) {
+  .tinyletter {
+    visibility: hidden;
+  }
+}
+
 .tag-cloud {
   border: 1px solid $border-color-02;
 }
