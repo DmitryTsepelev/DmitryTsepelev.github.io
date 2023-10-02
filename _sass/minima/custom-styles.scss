@@ -1,6 +1,19 @@
+main {
+  background-color: rgb(251, 251, 255);
+  margin-top: 64px;
+}
+
+.site-header {
+  position: fixed;
+  width: 100%;
+  background-color: white;
+}
+
 pre, code {
-  font-size: 18px;
+  font-size: 22px;
+  line-height: 1.5;
   border-radius: 0px;
+  margin: 32px 0;
   border: none;
 }
 
@@ -8,23 +21,56 @@ pre, code {
   border-radius: 0px;
 }
 
+h1 {
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
 .post-content {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.7;
 }
 
 .tinyletter {
-  position: absolute;
+  position: fixed;
   right: 36px;
   bottom: 36px;
   background-color: $brand-color-dark;
   padding: 16px;
   border-radius: 32px;
+  cursor: pointer;
+  animation: tilt-shaking 0.35s;
+}
+
+.tinyletter:hover {
+  animation: zoom-in-zoom-out 0.35s;
 }
 
 .tinyletter a {
   text-decoration: none;
   color: white;
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }
 
 @media screen and (max-width: 1600px) {
@@ -58,6 +104,7 @@ pre, code {
 
 blockquote {
   margin: 32px 24px;
+  font-size: 22px;
 }
 
 img {
@@ -69,4 +116,55 @@ img {
 .about-avatar {
   border-radius: 128px;
   height: 256px;
+}
+
+// Post decorations
+
+.post-meta {
+  font-size: 14px;
+  background-color: $brand-color-dark;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 16px;
+  width: 80px;
+  text-align: center;
+}
+
+.tags {
+  margin-top: 16px;
+}
+
+a .tag {
+  font-size: 14px;
+  line-height: 1.1;
+  color: red;
+}
+
+// Post list
+
+.post-list li {
+  padding: 32px 32px;
+  border: solid 1px lightgray;
+  border-radius: 16px;
+}
+
+.post-list h3 {
+  margin-top: 16px;
+}
+
+.post-list h5 {
+  margin-bottom: 0;
+}
+
+.post-list h3 > a {
+  font-size: 38px;
+  font-weight: 700;
+  color: black;
+  text-decoration: none;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.post-list h5 {
+  font-size: 16px;
 }

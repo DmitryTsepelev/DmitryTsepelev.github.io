@@ -20,13 +20,14 @@
       </h3>
 
       <h5>{{ post.description }}</h5>
-
-      {%- if site.show_excerpts -%}
-        {{ post.excerpt }}
-      {%- endif -%}
     {%- endif -%}
 
-    <hr />
+    <div class="tags">
+      {% for tag in post.tags %}
+        {% capture tag_name %}{{ tag }}{% endcapture %}
+        <a class="tag" href="/tag/{{ tag_name }}">#{{ tag_name }}</a>
+      {% endfor %}
+    </div>
   </li>
   {%- endfor -%}
 </ul>

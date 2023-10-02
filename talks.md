@@ -5,10 +5,6 @@ permalink: /talks/
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
   {% if site.paginate %}
     {% assign talks = paginator.talks %}
   {% else %}
@@ -18,7 +14,7 @@ permalink: /talks/
 
   {%- if talks.size > 0 -%}
     {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+      <h1 class="post-list-heading">{{ page.list_title }}</h2>
     {%- endif -%}
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
