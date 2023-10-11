@@ -35,7 +35,7 @@ Bear in mind that we will talk about pretty standard Rails monoliths with the re
   - [LightService](./service-objects-anti–patterns#lightservice)
   - [Granite](./service-objects-anti–patterns#granite)
   - [dry-*](./service-objects-anti–patterns#dry-)
-- [Anyway, are my services fine or not?](http://127.0.0.1:4000/service-objects-anti–patterns#anyway-are-my-services-fine-or-not)
+- [Anyway, are my services fine or not?](./service-objects-anti–patterns#anyway-are-my-services-fine-or-not)
 
 ## Contracts
 
