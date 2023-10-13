@@ -1,7 +1,9 @@
 ---
 title: "Service objects in Rails: how to find a mess"
 date: 2023-10-10 09:00:00 +0300
-permalink: 'service-objects-anti–patterns'
+permalink: 'service-objects-anti-patterns'
+redirect_from:
+  - /service-objects-anti–patterns
 description: 'Examine your service objects and try to find possible issues caused by wrong composition and missing contracts'
 tags: ruby rails
 ---
