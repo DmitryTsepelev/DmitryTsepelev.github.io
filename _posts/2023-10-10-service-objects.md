@@ -198,7 +198,7 @@ class ChildService
 end
 ```
 
-`ChildService` works fine when called directly, but when it's called inside `REPEATABLE READ`—it will behave in a wrong way.
+`ChildService` works fine when called directly, but when it's called inside `READ COMMITTED`—it will behave in a wrong way.
 
 ### Non–atomic action inside transactions
 
