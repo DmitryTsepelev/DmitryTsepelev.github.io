@@ -111,7 +111,7 @@ end
 
 The most important thing for us is the difference in error handling. In the program you can write some logic, raise exceptions and handle them, but in the database there is an additional level—_transactions_. When you start transaction, you can make some changes in the database, and commit or rollback them altogether. This is called _atomicity_, which is represented by **A** in [ACID](https://en.wikipedia.org/wiki/ACID)).
 
-Depending on the [isolation level](https://www.postgresql.org/docs/current/transaction-iso.html), database can behave differently when you make queries. For instance, default isolation level `READ COMMITTED` can return different data when you make the same query two times if something had changed in between, but `READ COMMITTED` will make queries return the same data until the commit.
+Depending on the [isolation level](https://www.postgresql.org/docs/current/transaction-iso.html), database can behave differently when you make queries. For instance, default isolation level `READ COMMITTED` can return different data when you make the same query two times if something had changed in between, but `REPEATABLE READ` will make queries return the same data until the commit.
 
 ### Non–atomic actions
 
@@ -243,7 +243,7 @@ class CheckPayment
   end
 
   def call
-    ApplicationRecord.transaction do
+    @order.with_lock do # lock will force DB snapshot to be taken
       response = PaymentProviderClient.check_payment(order_id: order.external_id)
 
       order.update!(payment_status: :processed) if response[:status] == :processed
