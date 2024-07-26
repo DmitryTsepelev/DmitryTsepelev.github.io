@@ -389,7 +389,7 @@ class PlaceOrder < ActiveInteraction::Base
   object :user
 
   def execute
-    ApplicationRecord.tranasction do
+    ApplicationRecord.transaction do
       order = compose(CreateOrder, user:)
       compose(ChargeCard, user:, order:)
     end
@@ -434,7 +434,7 @@ class PlaceOrder < Mutations::Command
   end
 
   def execute
-    ApplicationRecord.tranasction do
+    ApplicationRecord.transaction do
       order = CreateOrder.execute(user:)
       ChargeCard.execute(user:, order:)
     end
