@@ -1,6 +1,5 @@
 ---
 title: "How to test graphql-ruby responses"
-<!-- TODO: fix date -->
 date: 2024-08-27 09:00:00 +0300
 permalink: 'how-to-test-graphql-ruby-responses'
 description: 'How to test graphql-ruby responses, coming from types, mutations and subscriptions'
