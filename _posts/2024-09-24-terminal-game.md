@@ -114,7 +114,7 @@ class Game
   def draw_screen
     system "clear"
 
-    @level.map do |row|
+    @level.each do |row|
       row.each do |cell|
         print cell
       end
@@ -455,7 +455,7 @@ class Game
 
     loop do
       move_enemies
-      screen.render_level
+      screen.render_level(@level)
 
       case check_collision(@level.player.row_idx, @level.player.col_idx, @level.enemies)
       when :enemy
