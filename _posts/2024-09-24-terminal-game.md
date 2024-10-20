@@ -159,7 +159,7 @@ class LevelBuilder
       level.enemies = []
 
       level.map = File.readlines(@filepath).map.with_index do |line, row_idx|
-        line.chars.map.with_index do |c, col_idx|
+        line.strip.chars.map.with_index do |c, col_idx|
           case c
           when 'e'
             level.enemies << DynamicObject.new(row_idx, col_idx, :enemy)
@@ -244,7 +244,7 @@ class Game
     loop do
       draw_screen
 
-      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx)
+      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx, :player)
       new_player_position.move(get_pressed_key)
 
       @level.player = new_player_position
@@ -303,7 +303,7 @@ class Game
     loop do
       draw_screen
 
-      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx)
+      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx, :player)
       new_player_position.move(get_pressed_key)
 
       case check_collision(new_player_position.row_idx, new_player_position.col_idx, @level.enemies + [@level.door])
@@ -367,7 +367,7 @@ class Game
         break
       end
 
-      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx)
+      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx, :player)
       new_player_position.move(get_pressed_key)
 
       case check_collision(new_player_position.row_idx, new_player_position.col_idx, @level.enemies + [@level.door])
@@ -401,7 +401,7 @@ class Game
 
       new_enemy = DynamicObject.new(enemy.row_idx, enemy.col_idx, :enemy)
       new_enemy.move([RIGHT, LEFT, UP, DOWN].sample)
-      @level.enemies[idx] = new_enemy if check_collision(new_enemy.row_idx, new_enemy.col_idx, [@level.door, @level.player]).nil?
+      @level.enemies[idx] = new_enemy if check_collision(new_enemy.row_idx, new_enemy.col_idx, [@level.door]).nil?
     end
   end
 
@@ -463,7 +463,7 @@ class Game
         break
       end
 
-      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx)
+      new_player_position = DynamicObject.new(@level.player.row_idx, @level.player.col_idx, :player)
       new_player_position.move(get_pressed_key)
 
       case check_collision(new_player_position.row_idx, new_player_position.col_idx, @level.enemies + [@level.door])
