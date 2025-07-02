@@ -16,15 +16,15 @@
         </span>
       </label>
 
-      <div class="trigger">
+      <div class="nav-item">
         {%- for path in page_paths -%}
           {%- assign my_page = site.pages | where: "path", path | first -%}
           {%- if my_page.title -%}
-          <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+          <a class="nav-item" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
           {%- endif -%}
         {%- endfor -%}
 
-        <a class="page-link" href="https://boosty.to/dmitry_tsepelev">Support me</a>
+        <a class="nav-item" href="https://boosty.to/dmitry_tsepelev">Support me</a>
       </div>
     </nav>
   </div>
