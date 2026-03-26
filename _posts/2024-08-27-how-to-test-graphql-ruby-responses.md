@@ -305,3 +305,7 @@ end
 ---
 
 In this post we learned how to test various responses from your Ruby backend powered by GraphQL Ruby.
+
+---
+
+Building a GraphQL API in Rails and want it done right? [I offer GraphQL design and architecture consulting.](/consulting/)

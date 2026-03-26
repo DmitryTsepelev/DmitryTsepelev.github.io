@@ -155,3 +155,7 @@ In this post we discussed a method of an observable refactoring process of Ruby 
 3. otherwise—describe it in docs and track the progress manually;
 4. if you cannot fix issues all at once—build a list of files to fix, prioritize them and work on them from the top;
 5. if you were able to do everything using Rubocop—you can grab [rubocop_director](https://github.com/DmitryTsepelev/rubocop_director) for this job.
+
+---
+
+Large-scale refactoring is easier with a plan. If you're facing a similar situation, [I can help you map it out.](/consulting/)

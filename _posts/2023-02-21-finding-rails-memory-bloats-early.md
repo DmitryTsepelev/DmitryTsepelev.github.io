@@ -139,3 +139,7 @@ I never tested it in the real app yet, so please let me know if you notice somet
 ---
 
 In this post we discussed memory bloats: now you can not only notice and fix them, but also try to _prevent_. The main outcome is a bit different though: if you work with I/O — always consider the amount of data you might get and try to minimize this amount.
+
+---
+
+Memory issues in production are tricky to reproduce. If you're dealing with a Rails app that's eating too much memory, [I offer performance audits](/consulting/).

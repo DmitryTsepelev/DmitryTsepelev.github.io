@@ -100,3 +100,7 @@ How to understand that architecture does not fit your needs? For instance, when 
 
 In opposite, when responsibilities are clear and consistent—you always know where to find the code you want to change. Keep the architecture easy to understand. Mind the SRP.
 
+---
+
+If you're not sure which class to change in your codebase — that's a sign to step back and review the structure. [I help Rails teams with exactly that.](/consulting/)
+

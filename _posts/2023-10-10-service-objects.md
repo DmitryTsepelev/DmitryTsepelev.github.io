@@ -727,4 +727,8 @@ At the meantime, take a look at your services, see if you can spot some anti–p
 
 Maybe you will be able to solve it by redesigning the class layout. Probably making some new team agreements will help. It might turn out that your services are fine and you don't face any issues at all.
 
+---
+
+If your service layer looks like any of the patterns above, a focused audit can help you untangle it. [Let's talk.](/consulting/)
+
 

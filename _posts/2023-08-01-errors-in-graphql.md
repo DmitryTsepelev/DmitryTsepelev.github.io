@@ -265,3 +265,7 @@ Let's sum up what we discussed in the post:
 - permissions errors are likely gonna go to `errors` too;
 - when if we put something to `errors` — it’s better to have a structure (e.g., code and details)
 - validations and mutation specific errors should go to the mutation payload.
+
+---
+
+Building a GraphQL API in Rails and want it done right from the start? [I offer GraphQL design consulting.](/consulting/)
