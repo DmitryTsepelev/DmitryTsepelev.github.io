@@ -36,7 +36,10 @@ Built your app with Claude or ChatGPT and hitting the limits of what AI can help
 - Conference speaker and technical blogger
 
 ## Get in touch
+{: .get-in-touch-heading}
 
+<div class="get-in-touch" markdown="1">
 Email: [dmitry.a.tsepelev@gmail.com](mailto:dmitry.a.tsepelev@gmail.com)
 
 Telegram: [@dmitry_tsepelev](https://t.me/dmitry_tsepelev)
+</div>

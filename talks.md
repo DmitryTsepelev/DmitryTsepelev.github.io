@@ -5,49 +5,32 @@ permalink: /talks/
 ---
 
 <div class="home">
-  {% if site.paginate %}
-    {% assign talks = paginator.talks %}
-  {% else %}
-    {% assign talks = site.talks %}
-  {% endif %}
-
+  {% assign talks = site.talks | sort: "date" | reverse %}
 
   {%- if talks.size > 0 -%}
-    {%- if page.list_title -%}
-      <h1 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
-    <ul class="post-list">
+    <div class="talks-grid">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {% for talk in site.talks reversed %}
-      <li>
-        <span class="post-meta">{{ talk.conference }} | {{ talk.date | date: date_format }}</span>
-        <h3>
-          <a class="talk-link" href="{{ talk.url | relative_url }}">
-            {{ talk.title | escape }}
-          </a>
-        </h3>
-      </li>
+      {% for talk in talks %}
+      <a class="talk-card" href="{{ talk.url | relative_url }}">
+        <div class="talk-card__header">
+          <span class="post-meta">{{ talk.date | date: date_format }}</span>
+          <span class="talk-card__conference">{{ talk.conference }}</span>
+        </div>
+        <h3 class="talk-card__title">{{ talk.title | escape }}</h3>
+        {%- assign talk_excerpt = talk.content | strip_html | truncate: 120 -%}
+        {%- if talk_excerpt.size > 0 -%}
+          <p class="talk-card__description">{{ talk_excerpt }}</p>
+        {%- endif -%}
+        <div class="talk-card__footer">
+          {%- if talk.youtube_link -%}
+            <span class="talk-card__badge">Video</span>
+          {%- endif -%}
+          {%- if talk.slides_link -%}
+            <span class="talk-card__badge">Slides</span>
+          {%- endif -%}
+        </div>
+      </a>
       {%- endfor -%}
-    </ul>
-
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
+    </div>
   {%- endif -%}
-
 </div>
