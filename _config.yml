@@ -23,7 +23,7 @@ collections:
     output: true
 
 header_pages:
+  - consulting.md
   - oss.md
   - talks.md
   - mentions.md
-  - about.md

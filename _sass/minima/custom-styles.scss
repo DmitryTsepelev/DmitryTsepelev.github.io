@@ -115,7 +115,10 @@ img {
 
 .about-avatar {
   border-radius: 128px;
-  height: 256px;
+  height: 180px;
+  float: left;
+  margin: 0 24px 16px 0;
+  display: inline;
 }
 
 // Post decorations
