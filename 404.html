@@ -1,25 +1,55 @@
 ---
 permalink: /404.html
-layout: base
+layout: default
+body_class: notfound-body
+title: "Not found"
 ---
-
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
+<style>
+  body.notfound-body { min-height: 100vh; display: flex; flex-direction: column; }
+  .notfound-body > main.notfound { flex: 1; }
 </style>
 
-<div class="container">
-  <h1>404</h1>
+<main class="notfound">
+  <div class="shell shell--narrow card">
+    <div class="hero__eyebrow reveal">HTTP 404 · Not found</div>
+    <div class="big reveal d1">4<span class="dot">0</span>4</div>
+    <h1 class="title reveal d2">This page has wandered off.</h1>
+    <p class="lead reveal d2">
+      The URL you followed doesn't exist, or an old link has gone stale.
+      No shame — even <code>git blame</code> has its limits. Try one of these instead:
+    </p>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+    <ul class="options reveal d3">
+      <li>
+        <a href="{{ '/' | relative_url }}">
+          <span class="label">Home</span>
+          <span class="hint">/ →</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ '/' | relative_url }}#writing">
+          <span class="label">All writing</span>
+          <span class="hint">{{ site.posts.size }} essays →</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ '/oss/' | relative_url }}">
+          <span class="label">Open source</span>
+          <span class="hint">10 gems →</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ '/talks/' | relative_url }}">
+          <span class="label">Talks</span>
+          <span class="hint">{{ site.talks.size }} talks →</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ '/consulting/' | relative_url }}">
+          <span class="label">Consulting</span>
+          <span class="hint">Hire me →</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</main>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {%- assign page_title = page.title | default: site.title -%}
+  <title>{% if page.url == '/' %}{{ site.title }} · {{ site.description | escape }}{% else %}{{ page_title | escape }} — {{ site.title }}{% endif %}</title>
+  {%- if page.description -%}
+    <meta name="description" content="{{ page.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+  {%- elsif site.description -%}
+    <meta name="description" content="{{ site.description | escape }}">
+  {%- endif -%}
+  {%- feed_meta -%}
+  {%- seo -%}
+  {%- include custom-head.html -%}
+  {%- if site.google_analytics and jekyll.environment == 'production' -%}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.google_analytics }}');
+    </script>
+  {%- endif -%}
+</head>
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
+  {% include nav.html section=page.section %}
+  {{ content }}
+  {% include footer.html %}
+</body>
+</html>

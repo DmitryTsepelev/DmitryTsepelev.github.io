@@ -1,9 +1,10 @@
-<footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
-
-  <div class="wrapper">
-    <div class="social-links">
-      {%- include social.html -%}
-    </div>
+<footer class="site shell">
+  <div>© {{ site.time | date: "%Y" }} · Dmitry Tsepelev</div>
+  <div class="links">
+    <a href="https://github.com/DmitryTsepelev">github</a>
+    <a href="https://twitter.com/dmitrytsepelev">twitter</a>
+    <a href="https://t.me/dmitry_tsepelev">telegram</a>
+    <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+    <a href="mailto:dmitry.a.tsepelev@gmail.com">email</a>
   </div>
 </footer>

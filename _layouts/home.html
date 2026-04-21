@@ -1,17 +1,204 @@
 ---
-layout: base
+layout: default
 ---
+{%- assign posts = site.posts | slice: 0, 10 -%}
+{%- assign talks = site.talks | sort: "date" | reverse | slice: 0, 5 -%}
 
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+<div class="shell layout">
+<main>
 
-  {% include tag-cloud.html %}
+<section class="hero">
+  <h1 class="reveal d1">
+    I help teams build and scale<br>
+    <span class="accent">Rails applications.</span>
+  </h1>
 
-  {% include anchor_headings.html html=content anchorBody="#" %}
+  <p class="reveal d2">
+    From architecture decisions to production performance. I've spent
+    12+ years untangling these problems in production.
+  </p>
 
-  {% include post_list.html posts=site.posts %}
+  <a href="{{ '/consulting/' | relative_url }}" class="status reveal d3">
+    <span class="pulse"></span>
+    Get in touch
+    <span class="arrow">→</span>
+  </a>
+</section>
 
-  {% include tinyletter.html %}
+<section class="section" id="writing">
+  <div class="section__head">
+    <span class="section__label">Writing</span>
+    <span class="section__count">{{ site.posts.size }} essays · since 2019</span>
+  </div>
+
+  <ul class="writing">
+    {%- for post in posts -%}
+    <li>
+      <span class="date">{{ post.date | date: "%b '%y" }}</span>
+      <a class="title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      <span class="meta">{% if post.tags.size > 0 %}{{ post.tags | first | capitalize }}{% endif %}</span>
+    </li>
+    {%- endfor -%}
+  </ul>
+
+  {% if site.posts.size > 10 %}
+    <a href="{{ '/archive/' | relative_url }}" class="more">All {{ site.posts.size }} essays →</a>
+  {% endif %}
+</section>
+
+<section>
+  <div class="subscribe">
+    <div class="subscribe__copy">
+      <h4>Get new essays <span class="accent">by email.</span></h4>
+      <p>A quiet list. One dispatch when something new goes up — usually every few weeks. Unsubscribe in one click.</p>
+    </div>
+    <div>
+      <a href="{{ '/subscribe/' | relative_url }}" class="subscribe__cta">Subscribe <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shipping">
+  <div class="section__head">
+    <span class="section__label">Shipping</span>
+    <span class="section__count">Open source · 50M+ downloads</span>
+  </div>
+
+  <ul class="shipping">
+    <li>
+      <div>
+        <a href="https://github.com/DmitryTsepelev/rubocop-graphql" class="name">rubocop-graphql</a>
+        <span class="desc">Linter and style guide for graphql-ruby schemas.</span>
+      </div>
+      <div class="count"><b>43M</b>installs</div>
+    </li>
+    <li>
+      <div>
+        <a href="https://github.com/DmitryTsepelev/store_model" class="name">store_model</a>
+        <span class="desc">Wrap JSON-backed ActiveRecord attributes as first-class models.</span>
+      </div>
+      <div class="count"><b>5M</b>installs</div>
+    </li>
+    <li>
+      <div>
+        <a href="https://github.com/DmitryTsepelev/ar_lazy_preload" class="name">ar_lazy_preload</a>
+        <span class="desc">Automatic lazy preloading for ActiveRecord associations.</span>
+      </div>
+      <div class="count"><b>2M</b>installs</div>
+    </li>
+    <li>
+      <div>
+        <a href="https://github.com/DmitryTsepelev/graphql-ruby-fragment_cache" class="name">graphql-ruby-fragment_cache</a>
+        <span class="desc">Fragment-level caching for graphql-ruby queries.</span>
+      </div>
+      <div class="count"><b>600k</b>installs</div>
+    </li>
+  </ul>
+
+  <a href="{{ '/oss/' | relative_url }}" class="more">All projects on GitHub →</a>
+</section>
+
+<section class="section" id="talks">
+  <div class="section__head">
+    <span class="section__label">Talks</span>
+    <span class="section__count">Selected · {{ site.talks.size }} conferences</span>
+  </div>
+
+  <ul class="writing">
+    {%- for talk in talks -%}
+    <li>
+      <span class="date">{{ talk.date | date: "%b '%y" }}</span>
+      <a class="title" href="{{ talk.url | relative_url }}">{{ talk.title | escape }}</a>
+      <span class="meta">{{ talk.conference | escape }}</span>
+    </li>
+    {%- endfor -%}
+  </ul>
+
+  <a href="{{ '/talks/' | relative_url }}" class="more">Full list of talks →</a>
+</section>
+
+<section class="section" id="help">
+  <div class="section__head">
+    <span class="section__label">What I can help with</span>
+    <span class="section__count">Consulting</span>
+  </div>
+
+  <ul class="help-list">
+    <li>
+      <h5>Rails architecture &amp; performance</h5>
+      <p>Dealing with a slow Rails app, a tangled codebase, or a migration that feels risky? I've spent 12+ years untangling these problems in production.</p>
+    </li>
+    <li>
+      <h5>GraphQL API design</h5>
+      <p>Schema design, performance optimization, and best practices. I created <a href="https://github.com/DmitryTsepelev/rubocop-graphql">rubocop-graphql</a>, a linting toolset with 43M+ downloads used by teams worldwide.</p>
+    </li>
+    <li>
+      <h5>LLM integration in Rails</h5>
+      <p>Building AI features into an existing Rails application — multi-provider setups, RAG pipelines, observability, and agent integrations.</p>
+    </li>
+    <li>
+      <h5>Production readiness for AI-built apps</h5>
+      <p>Built your app with Claude or ChatGPT and hitting the limits of what AI can help with? I can audit your codebase and get it ready for real users.</p>
+    </li>
+  </ul>
+</section>
+
+<section id="hire">
+  <div class="hire-block">
+    <h3>How I work.</h3>
+    <ul>
+      <li><b>One-time audit</b> — I review your codebase, identify the most critical issues, and deliver a prioritized report.</li>
+      <li><b>Short engagement</b> — focused work on a specific problem over 2–4 weeks.</li>
+      <li><b>Ongoing advisory</b> — available for questions, architecture reviews, and code feedback on a monthly retainer.</li>
+    </ul>
+
+    <div class="contact">
+      <div class="contact__row">
+        <span class="contact__label">Email</span>
+        <a href="mailto:dmitry.a.tsepelev@gmail.com">dmitry.a.tsepelev@gmail.com</a>
+      </div>
+      <div class="contact__row">
+        <span class="contact__label">Telegram</span>
+        <a href="https://t.me/dmitry_tsepelev">@dmitry_tsepelev</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<aside class="rail" aria-label="Quick navigation">
+  {% include rail-availability.html %}
+  <h5>On this page</h5>
+  <ol id="rail-toc">
+    <li><a href="#writing" data-target="writing">Writing</a></li>
+    <li><a href="#shipping" data-target="shipping">Shipping</a></li>
+    <li><a href="#talks" data-target="talks">Talks</a></li>
+    <li><a href="#help" data-target="help">What I can help with</a></li>
+    <li><a href="#hire" data-target="hire">How I work</a></li>
+  </ol>
+</aside>
+
 </div>
+
+<script>
+(function () {
+  const list = document.getElementById('rail-toc');
+  if (!list) return;
+  const links = Array.from(list.querySelectorAll('a'));
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  const targets = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  if (targets.length === 0) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const a = byId.get(entry.target.id);
+      if (!a) return;
+      if (entry.isIntersecting) {
+        links.forEach(x => x.classList.remove('is-active'));
+        a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+})();
+</script>

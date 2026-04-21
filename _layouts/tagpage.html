@@ -1,10 +1,69 @@
 ---
-layout: base
+layout: default
+section: writing
 ---
+{%- assign current_tag = page.tag -%}
+{%- assign tag_posts = site.posts | where_exp: "p", "p.tags contains current_tag" | sort: "date" | reverse -%}
 
-<div class="post">
-  <h1>Tag: #{{ page.tag }}</h1>
+{%- assign all_tags_str = "" -%}
+{%- for post in site.posts -%}
+  {%- for tag in post.tags -%}
+    {%- assign all_tags_str = all_tags_str | append: tag | append: "|" -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign all_tags = all_tags_str | split: "|" | uniq | sort -%}
 
-  {% assign posts = site.tags[page.tag] %}
-  {% include post_list.html posts=posts %}
+<div class="shell back">
+  <a href="{{ '/' | relative_url }}#writing"><span aria-hidden="true">←</span> All writing</a>
+</div>
+
+<div class="shell layout">
+<main>
+
+<section class="hero hero--tag reveal d1">
+  <div class="hero__eyebrow">Tag archive</div>
+  <h1><span class="hash">#</span>{{ current_tag }}</h1>
+  <p class="lead">{{ tag_posts.size }} post{% if tag_posts.size != 1 %}s{% endif %} tagged {{ current_tag }}</p>
+</section>
+
+{% if tag_posts.size > 0 %}
+<ul class="writing writing--tag">
+  {% for post in tag_posts %}
+  <li>
+    <span class="date">{{ post.date | date: "%b '%y" }}</span>
+    <a class="title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+    <span class="meta">
+      {%- assign other_tags = "" -%}
+      {%- for tag in post.tags -%}
+        {%- unless tag == current_tag -%}
+          {%- if other_tags != "" -%}{%- assign other_tags = other_tags | append: " · " -%}{%- endif -%}
+          {%- assign other_tags = other_tags | append: tag | capitalize -%}
+        {%- endunless -%}
+      {%- endfor -%}
+      {{ other_tags }}
+    </span>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="empty">
+  <p>Nothing tagged <b>{{ current_tag }}</b> yet.</p>
+  <a href="{{ '/' | relative_url }}#writing">Browse all writing →</a>
+</div>
+{% endif %}
+
+</main>
+
+<aside class="rail rail--tag" aria-label="All tags">
+  <h5>Tags</h5>
+  <ul class="tag-list">
+    {% for tag in all_tags %}
+      {%- if tag != "" -%}
+        {%- assign cnt = site.posts | where_exp: "p", "p.tags contains tag" | size -%}
+        <li><a href="{{ '/tag/' | append: tag | relative_url }}" {% if tag == current_tag %}class="is-active"{% endif %}>#{{ tag }}<span class="cnt">{{ cnt }}</span></a></li>
+      {%- endif -%}
+    {% endfor %}
+  </ul>
+</aside>
+
 </div>

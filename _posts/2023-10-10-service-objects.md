@@ -16,29 +16,6 @@ Bear in mind that we will talk about pretty standard Rails monoliths with the re
 
 ---
 
-## Navigation
-
-- [Contracts](./service-objects-anti–patterns#contracts)
-- [Service composition](./service-objects-anti–patterns#service-composition)
-  - [Object–relational impedance mismatch](./service-objects-anti–patterns#objectrelational-impedance-mismatch)
-  - [Non–atomic actions](./service-objects-anti–patterns#nonatomic-actions)
-  - [What's wrong with composition](./service-objects-anti–patterns#whats-wrong-with-composition)
-- [Service implementation anti–patterns](./service-objects-anti–patterns#service-implementation-antipatterns)
-  - [Nested transactions](./service-objects-anti–patterns#nested-transactions)
-  - [Behavior is different depending on how service was called](./service-objects-anti–patterns#behavior-is-different-depending-on-how-service-was-called)
-  - [Incompatible transaction levels](./service-objects-anti–patterns#incompatible-transaction-levels)
-  - [Non–atomic action inside transactions](./service-objects-anti–patterns#nonatomic-action-inside-transactions)
-  - [IO actions inside transaction](./service-objects-anti–patterns#io-actions-inside-transaction)
-  - [Two transactions for single controller action](./service-objects-anti–patterns#two-transactions-for-single-controller-action)
-- [I'm using a gem for service objects!](./service-objects-anti–patterns#im-using-a-gem-for-service-objects)
-  - [interactor](./service-objects-anti–patterns#interactor)
-  - [active_interaction](./service-objects-anti–patterns#active_interaction)
-  - [mutations](./service-objects-anti–patterns#mutations)
-  - [LightService](./service-objects-anti–patterns#lightservice)
-  - [Granite](./service-objects-anti–patterns#granite)
-  - [dry-*](./service-objects-anti–patterns#dry-)
-- [Anyway, are my services fine or not?](./service-objects-anti–patterns#anyway-are-my-services-fine-or-not)
-
 ## Contracts
 
 Ruby does not have explicit type annotations out of the box. In simple cases it's easy to guess: what class will be used if the instance called `user`?

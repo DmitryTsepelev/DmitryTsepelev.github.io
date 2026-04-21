@@ -1,35 +1,122 @@
 ---
-layout: base
+layout: default
+section: writing
 ---
+{%- assign recent = site.posts | where_exp: "p", "p.url != page.url" | slice: 0, 3 -%}
 
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-    <div class="post-card__meta">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <span class="post-meta">
-        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-          {{ page.date | date: date_format }}
-        </time>
-      </span>
-      <div class="post-card__tags">
-        {% for tag in page.tags %}
-          {% capture tag_name %}{{ tag }}{% endcapture %}
-          <a class="tag" href="/tag/{{ tag_name }}">#{{ tag_name }}</a>
-        {% endfor %}
-      </div>
+<div class="shell back">
+  <a href="{{ '/' | relative_url }}#writing"><span aria-hidden="true">←</span> Back to writing</a>
+</div>
+
+<article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="hero hero--post shell reveal d1">
+    <h1 class="p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <div class="hero__meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%b %-d, %Y" }}
+      </time>
+      <span class="dot">·</span>
+      {%- assign words = page.content | number_of_words -%}
+      {%- assign rt = words | divided_by: 200 -%}
+      {%- if rt < 1 -%}{%- assign rt = 1 -%}{%- endif -%}
+      <span>{{ rt }} min read</span>
+      {%- if page.tags.size > 0 -%}
+        <span class="dot">·</span>
+        {%- for tag in page.tags -%}
+          <a class="tag" href="{{ '/tag/' | append: tag | relative_url }}">#{{ tag }}</a>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    {% include anchor_headings.html html=content anchorBody="" %}
-  </div>
+  <div class="shell layout">
+    <main>
+      <div class="prose e-content reveal d2" itemprop="articleBody">
+        {% include anchor_headings.html html=content anchorBody="" %}
+      </div>
 
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%}
+      <div class="after-post">
+        {% assign share_url = page.url | absolute_url | url_encode %}
+        {% assign share_title = page.title | url_encode %}
+        <div class="share">
+          <span class="share__label">Share</span>
+          <a href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}">Twitter</a>
+          <a href="https://news.ycombinator.com/submitlink?u={{ share_url }}&t={{ share_title }}">Hacker News</a>
+        </div>
+
+        <div class="subscribe">
+          <div class="subscribe__copy">
+            <h4>Get new essays <span class="accent">by email.</span></h4>
+            <p>A quiet list. One dispatch when something new goes up — usually every few weeks. Unsubscribe in one click.</p>
+          </div>
+          <div>
+            <a href="{{ '/subscribe/' | relative_url }}" class="subscribe__cta">Subscribe <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        {% if recent.size > 0 %}
+        <div class="more-writing">
+          <h4>More writing</h4>
+          <ul>
+            {% for p in recent %}
+            <li>
+              <span class="date">{{ p.date | date: "%b '%y" }}</span>
+              <a class="title" href="{{ p.url | relative_url }}">{{ p.title | escape }}</a>
+              <span class="meta">{% if p.tags.size > 0 %}{{ p.tags | first | capitalize }}{% endif %}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </main>
+
+    <aside class="rail rail--post" aria-label="Table of contents">
+      <h5>On this page</h5>
+      <ol id="toc-list"></ol>
+    </aside>
+  </div>
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
 
-{% include tinyletter.html %}
+<script>
+(function () {
+  const prose = document.querySelector('.prose');
+  const list = document.getElementById('toc-list');
+  if (!prose || !list) return;
+
+  const headings = prose.querySelectorAll('h1[id], h2[id], h3[id]');
+  if (headings.length === 0) {
+    const rail = document.querySelector('.rail--post');
+    if (rail) rail.style.display = 'none';
+    return;
+  }
+
+  headings.forEach(h => {
+    const level = parseInt(h.tagName.substring(1), 10);
+    const li = document.createElement('li');
+    li.className = 'lvl-' + level;
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent.replace(/#\s*$/, '').trim();
+    a.dataset.target = h.id;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  const links = Array.from(list.querySelectorAll('a'));
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const a = byId.get(entry.target.id);
+      if (!a) return;
+      if (entry.isIntersecting) {
+        links.forEach(x => x.classList.remove('is-active'));
+        a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  headings.forEach(h => obs.observe(h));
+})();
+</script>

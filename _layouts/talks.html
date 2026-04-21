@@ -1,0 +1,115 @@
+---
+layout: default
+section: talks
+---
+{%- assign all_talks = site.talks | sort: "date" | reverse -%}
+
+<div class="shell layout">
+<main>
+
+<section class="hero">
+  <div class="hero__eyebrow reveal">Talks</div>
+  <h1 class="reveal d1">
+    Conference talks and<br>
+    <span class="accent">meetup appearances.</span>
+  </h1>
+  <p class="lead reveal d2">
+    A running record of public talks — on Ruby internals, GraphQL, performance,
+    functional programming, and the occasional rabbit hole I could not resist.
+  </p>
+
+  {%- assign video_count = 0 -%}
+  {%- assign slides_count = 0 -%}
+  {%- for t in all_talks -%}
+    {%- if t.youtube_link -%}{%- assign video_count = video_count | plus: 1 -%}{%- endif -%}
+    {%- if t.slides_link -%}{%- assign slides_count = slides_count | plus: 1 -%}{%- endif -%}
+  {%- endfor -%}
+
+  <div class="stats reveal d2">
+    <div>
+      <div class="stat__num">{{ all_talks.size }}</div>
+      <div class="stat__label">Talks given</div>
+    </div>
+    <div>
+      <div class="stat__num">{{ video_count }}</div>
+      <div class="stat__label">Recordings</div>
+    </div>
+    <div>
+      <div class="stat__num">{{ slides_count }}</div>
+      <div class="stat__label">Slide decks</div>
+    </div>
+  </div>
+</section>
+
+{%- assign years = all_talks | group_by_exp: "t", "t.date | date: '%Y'" -%}
+{%- for yr in years %}
+<section class="year" id="y-{{ yr.name }}">
+  <div class="year__head">
+    <div class="year__num">{{ yr.name }}</div>
+    <div class="year__count">{{ yr.items.size }} talk{% if yr.items.size != 1 %}s{% endif %}</div>
+  </div>
+
+  <ul class="talks">
+    {%- for t in yr.items -%}
+    <li>
+      <span class="date">{{ t.date | date: "%b %-d" }}</span>
+      <div>
+        <a class="title" href="{{ t.url | relative_url }}">{{ t.title | escape }}</a>
+        <div class="meta">
+          <span class="conf">{{ t.conference | escape }}</span>
+          {% if t.youtube_link or t.slides_link %}<span class="sep">·</span>{% endif %}
+          {% if t.youtube_link %}
+            <a class="badge" href="{{ t.youtube_link }}">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 1v8l7-4z"/></svg>
+              Video
+            </a>
+          {% endif %}
+          {% if t.slides_link %}
+            <a class="badge" href="{{ t.slides_link }}">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="2" width="8" height="6" rx="0.5"/><path d="M3 5h4"/></svg>
+              Slides
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endfor -%}
+
+</main>
+
+<aside class="rail" aria-label="Page navigation">
+  {% include rail-availability.html heading="Open to speak" body="Available for conferences and meetups. Ruby, GraphQL, performance, AI in Rails." cta="Get in touch" href="mailto:dmitry.a.tsepelev@gmail.com" %}
+  <h5>Years</h5>
+  <ol id="rail-toc">
+    {%- for yr in years %}
+    <li><a href="#y-{{ yr.name }}" data-target="y-{{ yr.name }}">{{ yr.name }}</a></li>
+    {%- endfor %}
+  </ol>
+</aside>
+
+</div>
+
+<script>
+(function () {
+  const list = document.getElementById('rail-toc');
+  if (!list) return;
+  const links = Array.from(list.querySelectorAll('a'));
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  const targets = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  if (targets.length === 0) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const a = byId.get(entry.target.id);
+      if (!a) return;
+      if (entry.isIntersecting) {
+        links.forEach(x => x.classList.remove('is-active'));
+        a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+})();
+</script>
