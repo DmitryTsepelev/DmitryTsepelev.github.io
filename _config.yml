@@ -11,19 +11,28 @@ plugins:
 
 google_analytics: UA-221390545-1
 
-minima:
-  social_links:
-    - { platform: github,  user_url: "https://github.com/dmitrytsepelev" }
-    - { platform: twitter, user_url: "https://twitter.com/dmitrytsepelev" }
-
 remote_theme: "jekyll/minima"
 
 collections:
   talks:
     output: true
 
-header_pages:
-  - consulting.md
-  - oss.md
-  - talks.md
-  - mentions.md
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      section: "writing"
+  - scope:
+      path: ""
+      type: "talks"
+    values:
+      layout: "talk"
+      section: "talks"
+  - scope:
+      path: "tag"
+      type: "pages"
+    values:
+      layout: "tagpage"
+      section: "writing"

@@ -1,0 +1,5 @@
+<div class="rail__card">
+  <div class="status"><span class="pulse"></span><span>{{ include.heading | default: "Available for consulting" }}</span></div>
+  <p>{{ include.body | default: "Accepting one audit or short engagement for the next quarter." }}</p>
+  <a href="{{ include.href | default: '/consulting/' | relative_url }}" class="cta">{{ include.cta | default: "Get in touch" }} →</a>
+</div>

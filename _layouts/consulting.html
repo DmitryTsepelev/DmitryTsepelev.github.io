@@ -1,0 +1,160 @@
+---
+layout: default
+section: consulting
+---
+<div class="shell layout">
+<main>
+
+<section class="hero">
+  <div class="hero__eyebrow reveal">Consulting</div>
+  <h1 class="reveal d1">
+    I help teams build and scale<br>
+    <span class="accent">Rails applications.</span>
+  </h1>
+  <p class="lead reveal d2">
+    From architecture decisions to production performance. I've spent
+    12+ years untangling these problems in production.
+  </p>
+
+  <div class="avatar-row reveal d3">
+    <img src="{{ '/assets/avatar.png' | relative_url }}" alt="Dmitry Tsepelev" />
+    <div class="meta">
+      <b>Dmitry Tsepelev</b>
+      Ruby · Rails · GraphQL · based remotely
+    </div>
+  </div>
+</section>
+
+<section class="section" id="help">
+  <div class="section__head">
+    <span class="section__label">What I can help with</span>
+    <span class="section__count">Four areas</span>
+  </div>
+
+  <ul class="help">
+    <li>
+      <span class="no">01</span>
+      <div>
+        <h3>Rails architecture &amp; performance</h3>
+        <p>Dealing with a slow Rails app, a tangled codebase, or a migration that feels risky? I've spent 12+ years untangling these problems in production.</p>
+      </div>
+    </li>
+    <li>
+      <span class="no">02</span>
+      <div>
+        <h3>GraphQL API design</h3>
+        <p>Schema design, performance optimization, and best practices. I created <a href="https://github.com/DmitryTsepelev/rubocop-graphql">rubocop-graphql</a>, a linting toolset with 43M+ downloads used by teams worldwide.</p>
+      </div>
+    </li>
+    <li>
+      <span class="no">03</span>
+      <div>
+        <h3>LLM integration in Rails</h3>
+        <p>Building AI features into an existing Rails application — multi-provider setups, RAG pipelines, observability, and agent integrations.</p>
+      </div>
+    </li>
+    <li>
+      <span class="no">04</span>
+      <div>
+        <h3>Production readiness for AI-built apps</h3>
+        <p>Built your app with Claude or ChatGPT and hitting the limits of what AI can help with? I can audit your codebase and get it ready for real users.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="section" id="how">
+  <div class="section__head">
+    <span class="section__label">How I work</span>
+    <span class="section__count">Three tiers</span>
+  </div>
+
+  <ul class="tiers">
+    <li>
+      <div class="tier">One-time audit</div>
+      <div class="desc">I review your codebase, identify the most critical issues, and deliver a prioritized report.</div>
+    </li>
+    <li>
+      <div class="tier">Short engagement</div>
+      <div class="desc">Focused work on a specific problem over 2–4 weeks.</div>
+    </li>
+    <li>
+      <div class="tier">Ongoing advisory</div>
+      <div class="desc">Available for questions, architecture reviews, and code feedback on a monthly retainer.</div>
+    </li>
+  </ul>
+</section>
+
+<section class="section" id="why">
+  <div class="section__head">
+    <span class="section__label">Why me</span>
+    <span class="section__count">50M+ downloads</span>
+  </div>
+
+  <ul class="credentials">
+    <li>12 years building Rails backends in production</li>
+    <li>Creator of <a href="https://github.com/DmitryTsepelev/store_model">store_model</a>, <a href="https://github.com/DmitryTsepelev/ar_lazy_preload">ar_lazy_preload</a>, and <a href="https://github.com/DmitryTsepelev/rubocop-graphql">rubocop-graphql</a> — 50M+ downloads total</li>
+    <li>Contributor to Ruby, Rails, and graphql-ruby</li>
+    <li>Conference speaker and technical blogger</li>
+  </ul>
+</section>
+
+<section class="section" id="contact">
+  <div class="section__head">
+    <span class="section__label">Get in touch</span>
+    <span class="section__count">Reply within 48 hours</span>
+  </div>
+
+  <div class="contact-block">
+    <h3>Tell me what you're <span class="accent">working on.</span></h3>
+    <p>Drop a line about your Rails app, the problem you're trying to solve, and what a good outcome would look like. I read every email.</p>
+
+    <div class="contact-rows">
+      <div class="contact-row">
+        <span class="label">Email</span>
+        <a href="mailto:dmitry.a.tsepelev@gmail.com">dmitry.a.tsepelev@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="label">Telegram</span>
+        <a href="https://t.me/dmitry_tsepelev">@dmitry_tsepelev</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<aside class="rail" aria-label="Page navigation">
+  {% include rail-availability.html href="#contact" %}
+  <h5>On this page</h5>
+  <ol id="rail-toc">
+    <li><a href="#help" data-target="help">What I can help with</a></li>
+    <li><a href="#how" data-target="how">How I work</a></li>
+    <li><a href="#why" data-target="why">Why me</a></li>
+    <li><a href="#contact" data-target="contact">Get in touch</a></li>
+  </ol>
+</aside>
+
+</div>
+
+<script>
+(function () {
+  const list = document.getElementById('rail-toc');
+  if (!list) return;
+  const links = Array.from(list.querySelectorAll('a'));
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  const targets = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  if (targets.length === 0) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const a = byId.get(entry.target.id);
+      if (!a) return;
+      if (entry.isIntersecting) {
+        links.forEach(x => x.classList.remove('is-active'));
+        a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+})();
+</script>

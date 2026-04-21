@@ -4,3 +4,5 @@ _site/
 .jekyll-metadata
 .tool-versions
 .DS_Store
+.playwright-mcp/
+.ruby-lsp/

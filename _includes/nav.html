@@ -1,0 +1,12 @@
+{%- assign section = include.section -%}
+<header class="nav">
+  <div class="inner">
+    <a href="{{ '/' | relative_url }}" class="brand">dmitry tsepelev<span class="dot">.</span>dev</a>
+    <nav>
+      <a href="{{ '/' | relative_url }}#writing"{% if section == 'writing' %} class="active"{% endif %}>writing</a>
+      <a href="{{ '/oss/' | relative_url }}"{% if section == 'shipping' %} class="active"{% endif %}>shipping</a>
+      <a href="{{ '/talks/' | relative_url }}"{% if section == 'talks' %} class="active"{% endif %}>talks</a>
+      <a href="{{ '/consulting/' | relative_url }}"{% if section == 'consulting' %} class="active"{% endif %}>consulting</a>
+    </nav>
+  </div>
+</header>
