@@ -29,6 +29,12 @@ NameError: uninitialized constant SendShinyNewThingJob
 
 It's a race condition, pure and simple. The job isn't wrong, the code isn't wrong—the enqueue just won the race against the worker restart.
 
+# "Won't Sidekiq just retry it?"
+
+Yes—and it's worth saying plainly, because it's the first thing everyone asks. Retries are on by default, so that failing job doesn't vanish: Sidekiq schedules it for a retry, and a minute or two later—once the rollout has finished and every worker runs the new code—the retry loads the class and the job runs fine. No data is lost. The job self-heals.
+
+So the problem was never correctness. It's _noise_: a burst of `NameError`s in your error tracker on every single deploy, drowning out the failures you actually care about, plus a chunk of retry budget spent bouncing jobs that were never really broken. If a noisy tracker during deploys doesn't bother you, the honest answer is that you don't need any of this—close the tab and enjoy your coffee. Everything below is about killing that noise cleanly, without training yourself to ignore `NameError` altogether.
+
 # The workarounds, and why they get old
 
 The textbook answer is "deploy discipline": always ship the code that _defines_ a job before you ship the code that _enqueues_ it.
@@ -40,7 +46,20 @@ The most rigorous version of this is a **two-phase deploy** (also called _expand
 
 The same idea shows up in lighter forms: guard the enqueue behind a feature flag you flip only after every worker has restarted, or orchestrate the rollout so workers cycle before schedulers do.
 
-All of this works, but it adds overhead to every deploy. In practice the "define" and "enqueue" code usually lands in the same pull request, so you're manually splitting and sequencing it each time, and it's easy to forget. I wanted something that just handles the common case automatically, so I wrote [sidekiq-requeue_missing_class](https://github.com/DmitryTsepelev/sidekiq-requeue_missing_class).
+All of this works, but it adds overhead to every deploy. In practice the "define" and "enqueue" code usually lands in the same pull request, so you're manually splitting and sequencing it each time, and it's easy to forget.
+
+# Why this gets harder at scale
+
+There's a scale assumption hiding in most of the "just deploy in the right order" advice. On a small deployment—a handful of processes, the kind of setup a single-VM Kamal deploy or the Solid Trifecta is built for—you really can send Sidekiq the `quiet` signal, let the old workers drain, bring up the new ones, and never see the race. One web process, one worker: sequence them and you're done.
+
+That stops being cheap once you're running, say, 20 web instances and 30 Sidekiq processes:
+
+- **The coexistence window is wide.** Cycling fifty processes isn't instant—old and new code run side by side for minutes, not seconds. The race isn't a rare edge anymore; it's every deploy.
+- **"Workers before web" is a distributed-systems promise you have to keep _every time_.** Across multiple deploy units, autoscaling groups that spin fresh instances up mid-rollout, and separate web/worker release pipelines, guaranteeing strict ordering on every deploy is real orchestration work—and one slip brings the `NameError`s right back.
+- **Draining dozens of workers with long-running jobs is slow.** Waiting for every old worker to go quiet and finish before new code enqueues anything can stretch a deploy uncomfortably, so in practice teams don't fully drain.
+- **Schedulers don't care about your ordering.** A sidekiq-cron or clock process enqueuing a job every minute will hand a fresh one to some old worker inside that window no matter how you sequenced the rollout.
+
+None of this is exotic—it's just what "rolling deploy" means once you're past a couple of instances. This is the regime where an automatic safety net is worth more than per-deploy discipline: you stop babysitting the ordering and let something absorb the window for you. That's why I wrote [sidekiq-requeue_missing_class](https://github.com/DmitryTsepelev/sidekiq-requeue_missing_class).
 
 # The fix
 
@@ -86,6 +105,7 @@ The overhead for the happy path is negligible: for the overwhelming majority of 
 To be fair about the boundaries:
 
 - If your deploy pipeline already guarantees code-before-enqueue ordering and you trust it, you may not need this at all.
+- The lightest fix of all doesn't touch your app: tell your error tracker to swallow the noise. Most of them can ignore an error conditionally—drop a `NameError` while the job's `retry_count` is still below some threshold, and only report it once the retries are genuinely exhausted. (Mike Perham, Sidekiq's author, [suggested exactly this](https://www.reddit.com/r/ruby/comments/1upty4b/comment/ow4725r/) when this post came up on Reddit—worth reading the whole thread.) One rule in your tracker config, zero dependencies. The trade-offs: the suppression lives in your monitoring rather than your codebase, it's purely count-based (it can't tell a deploy-window miss from a class you deleted last week until the retries run out), and you still burn those retries. This middleware makes a different bet—stop the job from failing in the first place, so nothing reaches the tracker and no retry budget is spent. It also decouples two things the tracker rule ties together: with `retry_count < N` you're effectively sizing your jobs' retry policy around how long a deploy takes, whereas here the requeue window (`delay × max_requeues`) is tuned independently. On a big fleet with long rollouts that separation matters; on a small one it doesn't, and if you'd rather keep a one-line config over a dependency, that's a perfectly reasonable call.
 - It solves _missing classes_, and only that. It does **not** rescue you from incompatible changes to a job's arguments—renaming a keyword, changing arity, changing the shape of a serialized argument. An old worker can happily load a class and still choke on a payload shaped for the new version. That's exactly what the two-phase deploy above is for: expand the argument list first, wait for the rollout, then contract. The gem and expand/contract aren't rivals—reach for two-phase on genuinely breaking changes, and let the middleware be the safety net for the everyday missing-class race you'd otherwise have to babysit by hand.
 
 ---
